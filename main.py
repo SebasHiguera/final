@@ -1,14 +1,3 @@
-median_values = [505000, 313000, 172000, 154000, 215000, 145000, 343000, 267000, 225000, 615000]
-states = ["California", "New York", "Texas", "Michigan", "Florida", "Ohio", "Colorado", "Nevada", "Arizona", "Hawaii"]
-
-prices = {'California': 505000, 'New York': 313000, 'Texas': 172000, 'Michigan': 154000, 'Florida': 215000, 'Ohio': 145000, 'Colorado': 343000, 'Nevada': 267000, 'Arizona': 225000, 'Hawaii': 615000}
-
-
-def price_to_house(money):
-  for i in range(len(states)):
-    if money > median_values[i]:
-      print(states[i])
-
 # def state_number(user_state):
 #   return states.index(user_state)
 #     global price_num
@@ -34,6 +23,21 @@ def price_to_house(money):
 #         price_num = 9
 #     else:
 #         print("")
+
+median_values = [505000, 313000, 172000, 154000, 215000, 145000, 343000, 267000, 225000, 615000]
+
+states = ["California", "New York", "Texas", "Michigan", "Florida", "Ohio", "Colorado", "Nevada", "Arizona", "Hawaii"]
+
+prices = {'California': 505000, 'New York': 313000, 'Texas': 172000, 'Michigan': 154000, 'Florida': 215000, 'Ohio': 145000, 'Colorado': 343000, 'Nevada': 267000, 'Arizona': 225000, 'Hawaii': 615000}
+
+total_houses = []
+
+
+def price_to_house(money):
+  for i in range(len(states)):
+    if money > median_values[i]:
+      print(states[i])
+
 
 def savings(money,salary):
   years = 0
@@ -61,6 +65,8 @@ if __name__ == "__main__":
   print("###################################")
 
   money = int(input("How much money can you spend on a house? "))
+  print("It is also advised that people save 25% of their salary for a house")
+  salary = int(input("What is your yearly salary? "))
   print(f'\nWith ${money}, you could live in the following states: \n')
   price_to_house(money)
   
@@ -71,13 +77,13 @@ if __name__ == "__main__":
 
   else:
     print(f"\nYou cannot afford to live here, you still need ${prices[user_state] - money}\n") 
-    print("It is advised that people save 25% of their salary for a house")
-    salary = int(input("What is your yearly salary? "))
 
     years, money = savings(money, salary)
     print(f"\nWith a yearly salary of ${salary}, it would take about {years} year(s) to save enough money to live in {user_state}")
     print(f"You have ${money} left for another house")
     counter += years
+
+  total_houses.append(user_state)
 
   ask = input("\nWould you like to buy another house? (yes/no) ")
   if ask == 'yes':
@@ -93,14 +99,21 @@ if __name__ == "__main__":
     else:
       print(f"\nYou cannot afford another house here, you still need ${prices[user_state] - money}\n")
       years, money = savings(money, salary)
-      print(f"It will take about another {years} year(s) to save enough money to buy another house in {user_state}")
+      print(f"It will take about another {years} year(s) to save enough money to buy another house in {user_state} with your salary")
       print(f"You have ${money} left")
       counter += years
   
+    total_houses.append(user_state)
+
     ask = input("\nWould you like to buy another house? (yes/no) ")
     if ask == 'yes':
         ask = True
     else:
       ask = False
   
-  print(f"It has taken you {counter} years")
+  print(f"\nIt has taken you {counter} years to have acquired the following properties: \n")
+  
+  for i in range(len(states)):
+    print(f'{total_houses.count(states[i])} house(s) in {states[i]}')
+
+  print("\nThank you for your purchases, have a good rest of your day.") 
